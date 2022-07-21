@@ -4,14 +4,6 @@ import TheWelcome from "@/components/TheWelcome.vue";
 
 <template>
   <main>
-    <h1 class="textito">hola</h1>
     <TheWelcome />
   </main>
 </template>
-
-<style scoped>
-.textito {
-  color: var(--planta);
-  background-color: var(--fondo);
-}
-</style>

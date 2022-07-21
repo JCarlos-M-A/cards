@@ -1,15 +1,80 @@
 /* ---------Colores-------- */
 :root {
-    --planta: #00d80b;
-    --fondo: #d80000;
-  
-    --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-    --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-    --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-    --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
-  
-    --vt-c-text-light-1: var(--vt-c-indigo);
-    --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-    --vt-c-text-dark-1: var(--vt-c-white);
-    --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
-  }
+    --verde: #66B032;
+    --amarillo-verde: #D0EA2B;
+
+    --amarillo: #FEFE33;
+    --amarillo-naranja: #FABC02;
+
+    --naranja: #FB9902;
+    --rojo-naranja: #FD5308;
+
+    --rojo: #FE2712;
+    --rojo-violeta: #A7194B;
+
+    --violeta: #8601AF;
+    --azul-violeta: #3D01A4;
+
+    --azul: #0247FE;
+    --azul-verde: #0392CE;
+}
+
+.verde {
+    color: black;
+    background-color: var(--verde);
+}
+
+.verde:hover {
+    /* offset-x | offset-y | blur-radius | color */
+    box-shadow: 5px 5px 10px var(--amarillo-verde);
+    cursor: pointer;
+}
+
+.verdeNumero {
+    color: var(--amarillo-verde);
+}
+
+.verdeTipo {
+    color: var(--verde);
+    background-color: var(--amarillo-verde);
+}
+
+.azul {
+    color: white;
+    background-color: var(--azul);
+}
+
+.azul:hover {
+    /* offset-x | offset-y | blur-radius | color */
+    box-shadow: 5px 5px 10px var(--azul-verde);
+    cursor: pointer;
+}
+
+.azulNumero {
+    color: var(--azul-verde);
+}
+
+.azulTipo {
+    color: var(--azul);
+    background-color: var(--azul-verde);
+}
+
+.rojo {
+    color: white;
+    background-color: var(--rojo);
+}
+
+.rojo:hover {
+    /* offset-x | offset-y | blur-radius | color */
+    box-shadow: 5px 5px 10px var(--rojo-naranja);
+    cursor: pointer;
+}
+
+.rojoNumero {
+    color: var(--rojo-naranja);
+}
+
+.rojoTipo {
+    color: var(--rojo);
+    background-color: var(--rojo-naranja);
+}
