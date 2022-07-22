@@ -1,5 +1,6 @@
 @import "./base.css";
 @import "./colores.css";
+@import "./fuentes.css";
 
 #app {
   max-width: 1280px;

@@ -2,37 +2,80 @@
 export default {
   data() {
     return {
-      items: [
-        {
-          id: 1,
-          titulo: "Titulo",
-          color: "verde",
-          colorAcent: "verdeTipo",
-          colorNumero: "verdeNumero",
-          numero: "#001",
-        },
-        {
-          id: 2,
-          titulo: "Titulo azul",
-          color: "azul",
-          colorAcent: "azulTipo",
-          colorNumero: "azulNumero",
-          numero: "#002",
-        },
-        {
-          id: 3,
-          titulo: "Titulo",
-          color: "rojo",
-          colorAcent: "rojoTipo",
-          colorNumero: "rojoNumero",
-          numero: "#003",
-        },
-      ],
+      elementos: [],
+      inicio: 1,
+      fin: 51,
     };
+  },
+  mounted() {
+    this.elementos = this.consulta(this.inicio, this.fin);
   },
   methods: {
     selectCard(item) {
       //
+      console.log(item.nombre);
+    },
+
+    consulta(inicio, fin) {
+      let datos = [];
+      const myPromise = new Promise((resolve, reject) => {
+        for (let index = inicio; index < fin; index++) {
+          fetch(`https://pokeapi.co/api/v2/pokemon/${index}/`)
+            .then((response) => response.json())
+            .then((data) => {
+              datos.push({
+                titulo: "Titulo",
+                nombre: data.name,
+                id: data.id,
+                color: "rojo",
+                colorAcent: "rojoTipo",
+                colorNumero: "rojoNumero",
+                numero:
+                  "#" + data.id.toString().length < 3
+                    ? PadLeft("0" + data.id, length)
+                    : data.id,
+              });
+            });
+        }
+        setTimeout(() => {
+          datos.sort(function (a, b) {
+            if (a.id > b.id) {
+              return 1;
+            }
+            if (a.id < b.id) {
+              return -1;
+            }
+            // a must be equal to b
+            return 0;
+          });
+          resolve(datos);
+        }, 300);
+      });
+
+      myPromise.then((datos) => {
+        this.retorna(datos);
+      });
+    },
+    retorna(datos) {
+      this.elementos = datos;
+    },
+
+    siguientes() {
+      this.inicio = this.inicio + 50;
+      this.fin += 50;
+
+      this.consulta(this.inicio, this.fin);
+    },
+
+    anteriores() {
+      if (this.inicio == 1) {
+        console.log("ya es todo");
+      } else {
+        this.inicio = this.inicio - 50;
+        this.fin -= 50;
+
+        this.consulta(this.inicio, this.fin);
+      }
     },
   },
 };
@@ -41,13 +84,19 @@ export default {
 <template>
   <div class="about">
     <h1>Cards</h1>
+
+    <div style="display: flex">
+      <div @click="anteriores" class="botonPlano">Anteriores</div>
+      <div @click="siguientes" class="botonPlano">Siguientes</div>
+    </div>
+
     <div class="contenedor">
       <div
         class="card"
         :class="[item.color]"
-        v-for="item in items"
+        v-for="item in elementos"
         :key="item.id"
-        @mouseover="selectCard(item)"
+        @click="selectCard(item)"
       >
         <span class="numero" :class="[item.colorNumero]">
           {{ item.numero }}
@@ -60,6 +109,24 @@ export default {
 </template>
 
 <style>
+.botonPlano {
+  display: flex;
+  justify-content: center;
+  max-width: 8rem;
+  margin: 1rem;
+  padding: 1rem;
+  background-color: royalblue;
+  transition: box-shadow 0.3s;
+}
+
+.botonPlano:hover {
+  cursor: pointer;
+}
+
+.botonPlano:active {
+  box-shadow: 5px 5px 10px blueviolet, -5px -5px 10px blueviolet;
+}
+
 .contenedor {
   display: flex;
   flex-wrap: wrap;
@@ -77,13 +144,14 @@ export default {
 .numero {
   display: flex;
   justify-content: end;
+  font-family: "Roboto-Black";
 }
 
 .titulo {
   display: flex;
   justify-content: start;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: "Roboto-Regular";
+  font-size: 1.5rem;
 }
 
 .color {
