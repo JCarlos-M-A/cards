@@ -37,6 +37,7 @@ export default {
               });
             });
         }
+
         setTimeout(() => {
           datos.sort(function (a, b) {
             if (a.id > b.id) {
@@ -53,28 +54,39 @@ export default {
       });
 
       myPromise.then((datos) => {
-        this.retorna(datos);
+        this.elementos = datos;
       });
-    },
-    retorna(datos) {
-      this.elementos = datos;
     },
 
     siguientes() {
-      this.inicio = this.inicio + 50;
-      this.fin += 50;
+      //console.log(this.inicio);
+      if (this.inicio >= 851) {
+        this.inicio = 901;
+        this.fin = 906;
+        this.consulta(this.inicio, this.fin);
+      } else {
+        this.inicio = this.inicio + 50;
+        this.fin += 50;
 
-      this.consulta(this.inicio, this.fin);
+        this.consulta(this.inicio, this.fin);
+      }
     },
 
     anteriores() {
       if (this.inicio == 1) {
-        console.log("ya es todo");
+        //console.log("Ya es todo no existe el -1 :v");
       } else {
-        this.inicio = this.inicio - 50;
-        this.fin -= 50;
+        if (this.inicio == 901) {
+          this.inicio = this.inicio - 50;
+          this.fin = 901;
 
-        this.consulta(this.inicio, this.fin);
+          this.consulta(this.inicio, this.fin);
+        } else {
+          this.inicio = this.inicio - 50;
+          this.fin -= 50;
+
+          this.consulta(this.inicio, this.fin);
+        }
       }
     },
   },
